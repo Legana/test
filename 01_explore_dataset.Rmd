@@ -41,4 +41,15 @@ ggsave("figures/penguin_size_sex.png", width = 8, height = 6)
 ```{r, echo = FALSE}
 saveRDS(palmerpenguins::penguins_raw, "raw_dat/penguins_raw.rds")
 ```
+----------------------------------------------------------------
+
+
+```{r}
+penguins2 <- penguins %>% add_row(species = "Other")
+```
+
+```{r}
+source("scripts/notin_operator.R")
+which(penguins2$species %notin% penguins$species)
+```
 
