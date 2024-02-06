@@ -1,0 +1,44 @@
+---
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+```
+
+# Exploring Penguin dataset
+
+```{r}
+package_names <- c("tidyverse", "palmerpenguins")
+
+for (package_name in package_names) {
+  if (!requireNamespace(package_name, quietly = T)) {
+    install.packages(package_name)
+  } else {
+    library(package_name, character.only = T)
+  }
+}
+```
+
+```{r}
+glimpse(penguins)
+```
+
+```{r}
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = sex)) +
+  geom_point() +
+  facet_wrap(~species) +
+  labs(x = "Flipper length (mm)", y = "Body mass (g)") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
+
+```{r, echo = FALSE}
+ggsave("figures/penguin_size_sex.png", width = 8, height = 6)
+```
+
+```{r, echo = FALSE}
+saveRDS(palmerpenguins::penguins_raw, "raw_dat/penguins_raw.rds")
+```
+
